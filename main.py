@@ -3,14 +3,11 @@ import time
 import flask
 from flask import request, jsonify
 
-arduino = serial.Serial(port='COM4', baudrate=115200, timeout=.1)
+arduino = serial.Serial(port='COM3', baudrate=9600, timeout=.1)
 
-# Motor Requests
+# Motor Commands
 def moveForward():
     arduino.write(bytes("MOVE_F", 'utf-8'))
-
-def moveBackward():
-    arduino.write(bytes("MOVE_B", 'utf-8'))
 
 def moveLeft():
     arduino.write(bytes("MOVE_L", 'utf-8'))
@@ -40,6 +37,7 @@ def sensorinfo():
     arduino.write(bytes("INFO", 'utf-8'))
     time.sleep(1)
     data = arduino.readline()
+    print(data)
     return data
 
 app.run()
